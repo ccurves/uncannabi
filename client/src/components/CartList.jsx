@@ -23,7 +23,7 @@ const ProductDetail = styled.div`
 `;
 
 const Image = styled.img`
-  width: 200px;
+  width: 100px;
 `;
 
 const Details = styled.div`
@@ -36,15 +36,6 @@ const Details = styled.div`
 const ProductName = styled.span``;
 
 const ProductId = styled.span``;
-
-const ProductColor = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${(props) => props.color};
-`;
-
-const ProductSize = styled.span``;
 
 const PriceDetail = styled.div`
   flex: 1;
@@ -71,7 +62,12 @@ const ProductPrice = styled.div`
   font-weight: 200;
 `;
 
-const ButtonContainer = styled.span``;
+const ButtonContainer = styled.span`
+  display: flex;
+  text-decoration: underline;
+  align-items: center;
+  cursor: pointer;
+`;
 
 const Hr = styled.hr`
   background-color: #eee;
@@ -105,13 +101,10 @@ const CartList = ({ cart }) => {
                 <ProductName>
                   <b>Product:</b> {product.title}
                 </ProductName>
-                <ProductId>
-                  <b>ID:</b> {product._id}
-                </ProductId>
-                <ProductColor color={product.color} />
-                <ProductSize>
-                  <b>Size:</b> {product.size}
-                </ProductSize>
+                <ProductId></ProductId>
+                <ButtonContainer onClick={() => handleDelete(product)}>
+                  <Delete style={{ fontSize: 20 }} /> <b>Remove Item</b>
+                </ButtonContainer>
               </Details>
             </ProductDetail>
             <PriceDetail>
@@ -128,12 +121,6 @@ const CartList = ({ cart }) => {
               </ProductAmountContainer>
               <ProductPrice>$ {product.price * product.qty}</ProductPrice>
             </PriceDetail>
-            <ButtonContainer>
-              <Delete
-                style={{ fontSize: 20, cursor: "pointer" }}
-                onClick={() => handleDelete(product)}
-              />
-            </ButtonContainer>
           </Product>
           <Hr />
         </div>

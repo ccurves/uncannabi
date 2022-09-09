@@ -2,6 +2,11 @@ import { loginFailure, loginStart, loginSuccess } from "./userRedux";
 import { publicRequest, userRequest } from "../requestMethods";
 import { updateFailed, updateList } from "./wishlistRedux";
 import { handleError } from "../utils/errorHandler";
+import {
+  getProductFailure,
+  getProductStart,
+  getProductSuccess,
+} from "./productRedux";
 
 export const login = async (dispatch, user, setNotify) => {
   dispatch(loginStart());
@@ -11,6 +16,20 @@ export const login = async (dispatch, user, setNotify) => {
   } catch (error) {
     dispatch(loginFailure(handleError(error.response.data)));
     setNotify(true);
+  }
+};
+
+export const getProducts = async (dispatch, cat) => {
+  dispatch(getProductStart());
+  try {
+    const res = await publicRequest.get(
+      cat
+        ? `${process.env.REACT_APP_API_URL}/product?category=${cat}`
+        : `${process.env.REACT_APP_API_URL}/product`
+    );
+    dispatch(getProductSuccess(res.data));
+  } catch (error) {
+    dispatch(getProductFailure());
   }
 };
 

@@ -81,7 +81,7 @@ const List = ({ wishlist, user, getWishlist }) => {
           {wishlist.map((product, index) => (
             <>
               <Product key={index}>
-                <Link to={`/product/${product._id}`} className="link">
+                <Link to={`/product/${product.slug}`} className="link">
                   <ProductDetail>
                     <Image src={product.img} />
                     <Details>

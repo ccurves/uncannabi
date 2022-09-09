@@ -1,15 +1,15 @@
 import { Add, Remove } from "@material-ui/icons";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { Link, useLocation } from "react-router-dom";
-import { publicRequest } from "../requestMethods";
 import { addProduct } from "../redux/cartRedux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Top from "../components/Top";
+import Newsletter from "../components/Newsletter";
 
 const Container = styled.div``;
 
@@ -42,7 +42,7 @@ const Title = styled.h1`
 
 const Desc = styled.p`
   margin: 20px 0px;
-  font-size: 20px;
+  /* font-size: 20px; */
 `;
 
 const Price = styled.span`
@@ -148,22 +148,15 @@ const Button = styled.button`
 
 const Product = () => {
   const location = useLocation();
-  const id = location.pathname.split("/")[2];
-  const [product, setProduct] = useState({});
+  const slug = location.pathname.split("/")[2];
   const [qty, setQty] = useState(1);
   const [color, setColor] = useState([]);
   const [size, setSize] = useState([]);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const getProduct = async () => {
-      try {
-        const res = await publicRequest.get(`/product/find/${id}`);
-        setProduct(res.data);
-      } catch (error) {}
-    };
-    getProduct();
-  }, [id]);
+  const product = useSelector((state) =>
+    state.product.products.find((product) => product.slug === slug)
+  );
 
   const handleQuantity = (type) => {
     if (type === "dec") {
@@ -195,7 +188,7 @@ const Product = () => {
               {product?.categories.map((cat, index) => (
                 <CateFilter key={index}>
                   <Link to={`/products/${cat}`} className="link">
-                    <CateBox>{cat}</CateBox>
+                    <CateBox>{cat.toUpperCase()}</CateBox>
                   </Link>
                 </CateFilter>
               ))}
@@ -228,6 +221,7 @@ const Product = () => {
           </AddContainer>
         </InfoContainer>
       </Wrapper>
+      <Newsletter />
       <Footer />
     </Container>
   );

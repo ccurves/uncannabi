@@ -37,7 +37,7 @@ router.get("/:id", verifyToken, async (req, res) => {
       _id: req.params.id,
     }).populate({
       path: "wishlist",
-      select: "title desc price img _id",
+      select: "title slug price img _id",
     });
 
     res.status(200).json(user);

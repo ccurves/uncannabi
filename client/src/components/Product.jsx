@@ -85,10 +85,11 @@ const Product = ({ item }) => {
       <Image src={item.img} />
       <Info>
         <Icon>
-          <Link to={`/product/${item._id}`} className="link">
+          <Link to={`/product/${item.slug}`} className="link">
             <SearchOutlined />
           </Link>
         </Icon>
+
         {wishlist.some(
           (e) => JSON.stringify(e._id) === JSON.stringify(item._id)
         ) ? (

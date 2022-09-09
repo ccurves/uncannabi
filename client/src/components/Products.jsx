@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Product from "./Product";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../redux/apiCalls";
 
 const Container = styled.div`
   padding: 20px;
@@ -21,22 +22,14 @@ const TitleContainer = styled.div`
 `;
 
 const Products = ({ cat, filters, sort, page }) => {
-  const [products, setProducts] = useState([]);
+  const { products, isFetching } = useSelector((state) => state.product);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const res = await axios.get(
-          cat
-            ? `${process.env.REACT_APP_API_URL}/product?category=${cat}`
-            : `${process.env.REACT_APP_API_URL}/product`
-        );
-        setProducts(res.data);
-      } catch (error) {}
-    };
-    getProducts();
-  }, [cat]);
+    getProducts(dispatch, cat);
+  }, [dispatch, cat]);
 
   useEffect(() => {
     if (cat || page === "shop") {
@@ -68,34 +61,42 @@ const Products = ({ cat, filters, sort, page }) => {
 
   return (
     <Container>
-      {products.length === 0 && filteredProducts.length === 0 ? (
+      {isFetching ? (
         <TitleContainer>
-          <Title>No products found</Title>
+          <Title>Fetching products...</Title>
         </TitleContainer>
       ) : (
         <>
-          {" "}
-          {cat || page === "shop" ? (
-            <>
-              {filteredProducts.length === 0 ? (
-                <TitleContainer>
-                  <Title>No products found</Title>
-                </TitleContainer>
-              ) : (
-                filteredProducts.map((item) => (
-                  <Product item={item} key={item._id} />
-                ))
-              )}
-            </>
+          {products.length === 0 && filteredProducts.length === 0 ? (
+            <TitleContainer>
+              <Title>No products found</Title>
+            </TitleContainer>
           ) : (
             <>
-              {page === "home"
-                ? products
-                    .slice(0, 8)
-                    .map((item) => <Product item={item} key={item._id} />)
-                : products.map((item) => (
-                    <Product item={item} key={item._id} />
-                  ))}
+              {" "}
+              {cat || page === "shop" ? (
+                <>
+                  {filteredProducts.length === 0 ? (
+                    <TitleContainer>
+                      <Title>No products found</Title>
+                    </TitleContainer>
+                  ) : (
+                    filteredProducts.map((item) => (
+                      <Product item={item} key={item._id} />
+                    ))
+                  )}
+                </>
+              ) : (
+                <>
+                  {page === "home"
+                    ? products
+                        .slice(0, 8)
+                        .map((item) => <Product item={item} key={item._id} />)
+                    : products.map((item) => (
+                        <Product item={item} key={item._id} />
+                      ))}
+                </>
+              )}
             </>
           )}
         </>

@@ -94,15 +94,6 @@ const Dashboard = () => {
     }
   }, [user]);
 
-  // const getOrder = async () => {
-  //   try {
-  //     const res = await userRequest.get(`/order/find/${user._id}`);
-  //     setOrders(res.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   useEffect(() => {
     getOrder();
   }, [getOrder]);

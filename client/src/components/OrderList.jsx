@@ -79,7 +79,7 @@ const OrderList = ({ orders, getOrder }) => {
   const handleCancel = async (id) => {
     try {
       const res = await userRequest.put(`/order/${user._id}`, {
-        status: "cancelled",
+        status: "Cancelled",
       });
       // console.log(res.data);
       setNotify(res.data);
