@@ -123,7 +123,6 @@ const HomeNavbar = () => {
             setNotify={setNotify}
           />
         )}
-
         <Wrapper>
           <Left>
             <Language>EN</Language>

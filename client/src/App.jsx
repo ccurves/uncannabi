@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import Success from "./pages/Success";
 import Shop from "./pages/Shop";
 import Dashboard from "./pages/Dashboard";
+import Error404 from "./pages/Error404";
 
 const App = () => {
   const user = useSelector((state) => state.user.currentUser);
@@ -32,6 +33,7 @@ const App = () => {
           path="/register"
           element={user ? <Navigate to="/" /> : <Register />}
         />
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </BrowserRouter>
   );
