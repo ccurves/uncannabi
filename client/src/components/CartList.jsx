@@ -4,6 +4,7 @@ import { Add, Delete, Remove } from "@material-ui/icons";
 import { mobile } from "../responsive";
 import { addQty, descQty, removeProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Info = styled.div`
   flex: 3;
@@ -95,18 +96,21 @@ const CartList = ({ cart }) => {
       {cart.products.map((product, index) => (
         <div key={index}>
           <Product>
-            <ProductDetail>
-              <Image src={product.img} />
-              <Details>
-                <ProductName>
-                  <b>Product:</b> {product.title}
-                </ProductName>
-                <ProductId></ProductId>
-                <ButtonContainer onClick={() => handleDelete(product)}>
-                  <Delete style={{ fontSize: 20 }} /> <b>Remove Item</b>
-                </ButtonContainer>
-              </Details>
-            </ProductDetail>
+            <Link to={`/product/${product.slug}`} className="link">
+              <ProductDetail>
+                <Image src={product.img} />
+                <Details>
+                  <ProductName>
+                    <b>Product:</b> {product.title}
+                  </ProductName>
+                  <ProductId></ProductId>
+                  <ButtonContainer onClick={() => handleDelete(product)}>
+                    <Delete style={{ fontSize: 20 }} /> <b>Remove Item</b>
+                  </ButtonContainer>
+                </Details>
+              </ProductDetail>
+            </Link>
+
             <PriceDetail>
               <ProductAmountContainer>
                 <Add

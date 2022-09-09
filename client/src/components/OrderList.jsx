@@ -94,6 +94,7 @@ const OrderList = ({ orders, getOrder }) => {
   return (
     <Info>
       <Title>ORDER HISTORY</Title>
+      <Hr />
       {notify !== null && <Alert msg={notify} type="success" />}
       {orders.length !== 0 ? (
         <>
@@ -121,7 +122,7 @@ const OrderList = ({ orders, getOrder }) => {
                   </Details>
                 </OrderDetail>
 
-                {order.status === "pending" && (
+                {order.status === "Processing" && (
                   <Button onClick={() => handleCancel(order._id)}>
                     <Cancel style={{ fontSize: 20, marginRight: "10px" }} />
                     Cancel Order

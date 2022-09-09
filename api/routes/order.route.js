@@ -19,6 +19,7 @@ router.post("/", verifyToken, async (req, res) => {
     products: items,
     amount: req.body.amount,
     address: req.body.address,
+    status: "Processing",
   });
 
   try {
