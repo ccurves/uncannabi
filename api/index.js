@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const helmet = require("helmet");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/user.route");
 const authRoutes = require("./routes/auth.route");
@@ -21,6 +22,13 @@ connectDB();
 //Use bodyParser
 app.use(express.json());
 
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    frameguard: true,
+  })
+);
+
 //Config for only development
 if (process.env.NODE_ENV === "development") {
   app.use(
@@ -33,6 +41,10 @@ if (process.env.NODE_ENV === "development") {
 
   // app.use(morgan("dev"));
 }
+
+app.get("/", (req, res) => {
+  res.send("Hello from Express!");
+});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
