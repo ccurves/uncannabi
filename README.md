@@ -22,7 +22,7 @@ The store current functionalities and implementations are:
 - Admin can perform CRUD operations on products
 - Admin manages the delivery status of orders
 
-###features:
+### features:
 
 - Node provides the backend environment for this application
 - Express middleware is used to handle requests, routes
@@ -40,16 +40,17 @@ This application is deployed on Netlify and the backend is hosted on heroku. Che
 
 ## Paypal test card and account
 
-Use this account and card to test out the paypal payment gateway
--Account
-Email: sb-v2ubs20614136@personal.example.com
-Password: uncanabi
+Use this account and card to test out the paypal payment gateway </br>
+#### Account
+- Email: sb-v2ubs20614136@personal.example.com
+- Password: uncanabi
 
--Credit Card
-Card Type: Visa
-Card Number: 4032039374007484
-Expiration Date: 12/2024
-CVV: 664
+#### Credit Card
+
+- Card Type: Visa
+- Card Number: 4032039374007484
+- Expiration Date: 12/2024
+- CVV: 664
 
 ## Languages & tools
 
